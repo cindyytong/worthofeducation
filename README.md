@@ -31,8 +31,8 @@ Tuition costs & college rankings as of 2019 are sourced from [Forbes](https://ww
 
 The visualization consists of a single screen containing a map of the United States, a panel to select options to filter the map by adding markers.
 
-![Landing Page](./assets/data/images/landing.jpg)
-![School Modal](./assets/data/images/school_modal.jpg)
+![Landing Page](./assets/images/landing.jpg)
+![School Modal](./assets/images/school_modal.jpg)
 
 #### Architecture & Technologies 
 WoE is built with:
