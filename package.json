@@ -1,0 +1,36 @@
+{
+  "name": "WorthOfEducation",
+  "version": "1.0.0",
+  "description": "A Visualization of Tuition Cost and Graduate Earnings from America's Top Colleges",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cindyytong/worthofeducation.git"
+  },
+  "author": "Cindy Tong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cindyytong/worthofeducation.git"
+  },
+  "homepage": "https://github.com/cindyytong/worthofeducation.git",
+  "dependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-loader": "^8.0.5",
+    "d3": "^5.9.2",
+    "html-webpack-plugin": "^3.2.0",
+    "lodash": "^4.17.15",
+    "webpack": "^4.29.6",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "webpack-cli": "^3.3.9"
+  }
+}
