@@ -35,8 +35,34 @@ The visualization consists of a single screen containing a map of the United Sta
 ![Filter Top 10 Schools](./assets/images/wireframes/select_filter.jpg)
 ![About School](./assets/images/wireframes/hover_school.jpg)
 
-#### Architecture & Technologies 
+### Architecture & Technologies 
 WoE is built with:
 * `Javascript` for data retrieval and computation 
 * `D3.js` + `HTML5` + `SVG` + `CSS3` for interactive visualization 
 * `Webpack` + `Babel` to bundle js files 
+
+### Implementation Timeline
+1. Day 1:
+* Make project proposal 
+* Create wireframes
+* Identify source data sets 
+
+2. Day 2: 
+* Get sign off on project proposal
+* Clean data set 
+* Convert data to JSON
+* Set up map 
+* D3 tutorial on map manipulation 
+
+3. Day 3:
+* Map filtering 
+* Create modal for school info 
+
+4. Day 4: 
+* Finish map and modal
+* Clean up CSS 
+* Test on different browser sizes
+
+5. Day 5: 
+*  Fix bugs 
+
