@@ -3,12 +3,16 @@
 /* font-family: 'EB Garamond', serif; */
 
 @import './_css_reset.css';
+@import './map.scss';
 
 h1 {
     font-family: 'Oswald', sans-serif;
-    color: red;
+    color:#EDECF4;
+    font-size: 40px;
+    text-transform: uppercase;
 }
 
 p {
     font-family: 'EB Garamond', serif;
 }
+
