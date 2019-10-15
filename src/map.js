@@ -3,14 +3,15 @@ import states from './data/us';
 
 
  //Width and height of map
- var width = 960;
- var height = 500;
+ var width = 1300;
+ var height = 800;
  
  // create svg
- var svg = d3.select( "body" )
+ var svg = d3.select( "#map" )
      .append( "svg" )
      .attr( "width", width )
-     .attr( "height", height );
+     .attr( "height", height )
+
  
  // Append empty placeholder g element to the SVG
  // g will contain geometry elements
@@ -18,9 +19,9 @@ import states from './data/us';
  
  // D3 Projection
  var albersProjection= d3.geoAlbers()
-     .scale( 100 )
-     .rotate( [71.057,0] )
-     .center( [0, 42.313] )
+     .scale( 1300 )
+     .rotate( [90,0] )
+    //  .center( [0, 42.313] )
      .translate( [width/2,height/2] );
  
          
@@ -35,18 +36,19 @@ import states from './data/us';
        .data( states.features ) 
        .enter()
        .append( "path" )
-       .attr( "fill", "#ccc" )
-       .attr( "stroke", "#333")
+       .attr( "fill", "#1E1E2F" )
+       .attr( "stroke", "#EDECF4")
        .attr( "d", geoPath );
 
  
  
    // Map schools
-   var schoolLocations = svg.append("g");
-     schoolLocations.selectAll( "path" )
+   console.log(schools.features);
+   var schoolPins = svg.append("g");
+     schoolPins.selectAll( "path" )
        .data( schools.features )
        .enter()
        .append( "path" )
-       .attr( "fill", "#900" )
-       .attr( "stroke", "#999" )
+       .attr( "fill", "#EDECF4" )
+       .attr( "stroke", "#EDECF4" )
        .attr( "d", geoPath );
