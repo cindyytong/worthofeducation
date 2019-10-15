@@ -2,9 +2,11 @@
 /* font-family: 'Oswald', sans-serif; */
 /* font-family: 'EB Garamond', serif; */
 
+@import './_css_reset.css';
 
 h1 {
     font-family: 'Oswald', sans-serif;
+    color: red;
 }
 
 p {

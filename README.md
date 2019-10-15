@@ -1,14 +1,16 @@
 # Worth of Education
 
 ## Overview 
-College is expensive. In 2019, the average tuition of the top 10 schools reported by Forbes was $224,241.[^1] This number is expected to continue growing while student loan debt sores. According to a study by the Federal Reserve Bank, student loans neared $1.5 trillion in 2019, with each borrower having an average balance of $33,500.[^2] 
+College is expensive. In 2019, the average tuition of the top 10 schools reported by Forbes was $224,241. [^1] This number is expected to continue growing while student loan debt sores. According to a study by the Federal Reserve Bank, student loans neared $1.5 trillion in 2019, with each borrower having an average balance of $33,500. [^2] 
 
-Worth of Education (WoE) provides a visualization of the tuition cost and average salary earnings of graduates from Forbes top 50 ranked colleges across America.  WoE calculates the opportunity cost of college tuition by mapping it against the potential earnings of reinvesting into the S&P 500 Index.[^3]  Data regarding salaries has been attained through Wall Street Journal’s release of data from Payscale, Inc’s year long survey of 1.2 million people. Information regarding tuition costs and school ranking has been pulled from Forbes.  
+Worth of Education (WoE) provides a visualization of the tuition cost and average salary earnings of graduates from Forbes top 50 ranked colleges across America.  WoE calculates the opportunity cost of college tuition by mapping it against the potential earnings of reinvesting into the S&P 500 Index. [^3]  Data regarding salaries has been attained through Wall Street Journal’s release of data from Payscale, Inc’s year long survey of 1.2 million people. Information regarding tuition costs and school ranking has been pulled from Forbes.  
 
 Sources: 
-[^1]: College rankings reported by [Forbes](https://www.forbes.com/top-colleges/#95ee07e19877 )
+[^1]: College rankings reported by [Forbes](https://www.forbes.com/top-colleges/#95ee07e19877)
+
 [^2]: Information on college debt reported by the [New York Fed](https://libertystreeteconomics.newyorkfed.org/2019/10/who-borrows-for-collegeand-who-repays.html)
-[^3]: Average historial annual return of the S&P500 Index is 10% as reported by [Investopedia](https://www.investopedia.com/ask/answers/042415/what-average-annual-return-sp-500.asp)
+
+[^3]: Average historial annual return of the S&P500 Index is 10% as reported by [Investopedia] (https://www.investopedia.com/ask/answers/042415/what-average-annual-return-sp-500.asp)
 
 ### Functionality & MVP
 WoE users are able to 
