@@ -55,25 +55,55 @@ let tip = d3.tip()
 
 svg.call(tip);
 
-//Add pins for all schools 
+//Select All
 let schoolPins = svg.append("g");
-schoolPins.selectAll( "path" )
-    .data(schools.features)
-    .enter()
-    .append("circle")
-    .attr('class', 'default-pin')
-    .attr("r", 3)
-    .attr("transform", function(school) {
-        return "translate(" + albersProjection([
-        school.lon,
-        school.lat
-        ]) + ")";
-    })
-    .on('mouseover', tip.show)
-	.on('click', tip.hide);		
 
 // Filtering 
+// All 
+function filterSchools(filterId, dataSet) {
+    document.getElementById(filterId).onclick = function(){
+        d3.selectAll("circle").remove();
 
-rank.most_expensive.forEach(school => {
-    console.log(school.start_salary)
-})
+        schoolPins.selectAll( "path" )
+        .data(dataSet)
+        .enter()
+        .append("circle")
+        .attr('class', 'default-pin')
+        .attr("r", 3)
+        .attr("transform", function(school) {
+            return "translate(" + albersProjection([
+            school.lon,
+            school.lat
+            ]) + ")";
+        })
+        .on('mouseover', tip.show)
+        .on('click', tip.hide);		
+    }
+}
+
+filterSchools('all', schools.features);
+filterSchools('tuition', rank.most_expensive);
+filterSchools('start-salary', rank.highest_start);
+filterSchools('mid-salary', rank.highest_midcareer);
+filterSchools('pay-off', rank.fastest_pay);
+
+
+
+// highest tuition 
+// document.getElementById('tuition').onclick = function(){
+//     schoolPins.selectAll( "path" )
+//     .data(rank.most_expensive)
+//     .enter()
+//     .append("circle")
+//     .attr('class', 'default-pin')
+//     .attr("r", 3)
+//     .attr("transform", function(school) {
+//         return "translate(" + albersProjection([
+//         school.lon,
+//         school.lat
+//         ]) + ")";
+//     })
+//     .on('mouseover', tip.show)
+// 	.on('click', tip.hide);		
+// }
+

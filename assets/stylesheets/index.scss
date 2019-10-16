@@ -44,7 +44,7 @@ body {
 #selections {
     display: flex;
     flex-direction: row;
-    width: 800px;
+    width: 1000px;
     justify-content: space-between;
 }
 
@@ -61,7 +61,7 @@ body {
     font-family: 'Oswald-light', sans-serif;
     text-decoration: none;
     font-size: 14px;
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-weight: 100px;
     letter-spacing: .1em;
     
