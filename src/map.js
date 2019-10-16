@@ -41,25 +41,30 @@ import * as rank from './data/top_ten';
 
  
  // Map schools
- function openModal(){
-    modal.style.display = "block";
-}
 
-let tip = d3.tip()
-    .html(function(school) {
-        return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
-        "<p>Ranking: "+school.rank+"</p>"+
-        "<button id='open-modal' onclick='openModal'>See Statistics</button></div>");
-    })
+// let showTip = d3.select("#modal").style("display", "block");
+
+function openModal() {
+    // return () => {showTip}
+    console.log(document.getElementById('modal'));
+    document.getElementById('modal').classList.remove("hide");
+    // d3.select("#modal").style("display", "block");
+    // console.log(modal.style)
+}
+window.openModal = openModal;
 
 // let tip = d3.tip()
 //     .html(function(school) {
 //         return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
-//         "<p>Ranking: "+school.rank+"</p>")
-
+//         "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick="+openModal+">See Statistics</button></div>");
 //     })
 
-// d3.selectAll('.tooltip-content').appendHTML = "<button id='open-modal' onclick='openModal'>See Statistics</button></div>";
+let tip = d3.tip()
+    .html(function(school) {
+        return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
+        "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick='openModal()'>See Statistics</button></div>");
+    })
+
 
 svg.call(tip);
 
@@ -111,26 +116,24 @@ filterSchools('pay-off', rank.fastest_pay, 'pink-pin');
 
 // modal functionality 
 
-let modal = document.getElementById('modal');
-// modal.style.display = "none"; // default do not display 
+// let modal = document.getElementById('modal');
 
 let close = document.getElementsByClassName("close")[0];
 
+
 // let btn = document.getElementById('open-modal');
-// btn.onclick = function(){
-//     modal.style.display = "block";
+// btn.onclick = function(btn){
+//     btn.classList.add("hide");
 // }
 
 
-close.onclick = function(){
-    modal.style.display = "none";
-}
+// close.onclick = function(){
+//     modal.style.display = "none";
+// }
 
-// remove modal if clicking outside of modal
-window.onclick = function(event) {
-    if(event.target != modal) {
-        modal.style.display = "none";
-    }
-}
-
-// insert info into modal 
+// // remove modal if clicking outside of modal
+// window.onclick = function(event) {
+//     if(event.target != modal) {
+//         document.getElementById('modal').classList.add("hide");
+//     }
+// }

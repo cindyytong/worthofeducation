@@ -7,7 +7,6 @@
     width: 100rem;
     overflow: auto; /* Enable scroll if needed */
     
-    
 }
 
   .modal-content {
@@ -18,6 +17,14 @@
     font-family: 'Oswald', sans-serif;
     color: white;
 
+  }
+
+  .show {
+      display: block;
+  }
+
+  .hide {
+      display: none;
   }
 
   /* The Close Button */
