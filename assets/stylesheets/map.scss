@@ -22,7 +22,7 @@
 }
 
 
-#tooltip{
+.tooltip-content{
     background: #EDECF4;
     border:1px solid;
     border-radius:5px;
@@ -38,19 +38,19 @@
 
 
 // tooltip 
-#tooltip h4 {
+.tooltip-content h4 {
     font-size: 20px;
     margin-bottom: 20px;
     text-transform: capitalize;
     letter-spacing: 1.3;
 }
 
-#tooltip p {
-    font-size: 12px;
+.tooltip-content p {
+    font-size: 13px;
     margin-bottom: 20px;
 }
 
-#tooltip a {
-    font-size: 12px;
+.tooltip-content a {
+    font-size: 13px;
     color: #E74B6F; 
 }

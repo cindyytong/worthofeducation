@@ -1,5 +1,6 @@
 import schools from './data/schools';
 import states from './data/us';
+import * as rank from './data/top_ten';
 
  //Width and height of map
  var width = 1300;
@@ -43,7 +44,16 @@ import states from './data/us';
 // Map schools
 // make tooltip for school
 
-let getTooltip = document.getElementById("tooltip");
+// let getTooltip = document.getElementById("tooltip");
+
+let tip = d3.tip()
+    .html(function(school) {
+        return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
+        "<p>Ranking: "+school.rank+"</p>"+
+        "<a href='#'>See Statistics<a></div>");
+    })
+
+svg.call(tip);
 
 //Add pins for all schools 
 let schoolPins = svg.append("g");
@@ -59,22 +69,11 @@ schoolPins.selectAll( "path" )
         school.lat
         ]) + ")";
     })
-.on('mousemove', function(school){
-    d3.select(this)
-    .attr('class', 'hover-pin');
+    .on('mouseover', tip.show)
+	.on('click', tip.hide);		
 
-    let schoolInfo = "<h4>"+school.school+"</h4>"+
-    "<p>Ranking"+school.rank+"</p>"+
-    "<a href='#'>See Statistics<a>"
+// Filtering 
 
-    console.log(schoolInfo);
-    getTooltip.innerHTML = schoolInfo;
-    getTooltip.show();
+rank.most_expensive.forEach(school => {
+    console.log(school.start_salary)
 })
-.on("mouseout", function(school){
-    d3.select(this)
-    .attr('class', 'default-pin')
-});
-// .on('click', tip.hide);		
-
-// only allow one active at a time 
