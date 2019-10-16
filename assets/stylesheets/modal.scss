@@ -1,35 +1,36 @@
-.modal {
-    // display: none;
-    position: fixed; /* Stay in place */
+#modal {
+    position: absolute !important; /* Stay in place */
     z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100rem;
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    width: 90%;
+    
+    
 }
 
   .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
+    background-color: #1E1E2F;
+    padding: 35px;
+    border: 1px solid #fefefe;
+    border-radius: 10px;
+    font-family: 'Oswald', sans-serif;
+    color: white;
+
   }
 
   /* The Close Button */
 .close {
-    color: #aaa;
+    color: #fefefe;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
   }
   
 .close:hover,
 .close:focus {
-color: black;
+color: #75F1AA;
 text-decoration: none;
 cursor: pointer;
 }

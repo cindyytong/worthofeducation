@@ -112,17 +112,14 @@ filterSchools('pay-off', rank.fastest_pay, 'pink-pin');
 // modal functionality 
 
 let modal = document.getElementById('modal');
-modal.style.display = "none"; // default do not display 
+// modal.style.display = "none"; // default do not display 
 
 let close = document.getElementsByClassName("close")[0];
-
 
 // let btn = document.getElementById('open-modal');
 // btn.onclick = function(){
 //     modal.style.display = "block";
 // }
-
-
 
 
 close.onclick = function(){
@@ -135,3 +132,5 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+// insert info into modal 
