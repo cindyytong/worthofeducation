@@ -21,6 +21,72 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 5%;
     background-color: #1E1E2F;
+}
+
+#menu {
+    width: 1000px;
+    height: 120px;
+    border: .75px dashed #EDECF4; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+#selections {
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    justify-content: space-between;
+}
+
+#menu h4 {
+    color:#EDECF4;
+    font-size: 20px;
+    font-weight: 100;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 25px;
+}
+
+#menu a {
+    font-family: 'Oswald-light', sans-serif;
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 100px;
+    letter-spacing: .1em;
+    
+}
+
+#menu a:hover {
+    text-decoration: underline;
+}
+
+#tuition {
+    color: #7CDBF2;
+}
+
+#start-salary {
+    color: #E74B6F;
+}
+
+#mid-salary {
+    color: #7360CC;
+}
+
+#pay-off {
+    color: #F0B0BB;
+}
+
+#all {
+    color: #EDECF4;
 }
