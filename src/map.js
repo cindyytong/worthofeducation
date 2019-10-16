@@ -1,7 +1,6 @@
 import schools from './data/schools';
 import states from './data/us';
 
-
  //Width and height of map
  var width = 1300;
  var height = 800;
@@ -36,44 +35,46 @@ import states from './data/us';
        .data( states.features ) 
        .enter()
        .append( "path" )
-       .attr( "fill", "#1E1E2F" )
-       .attr( "stroke", "#EDECF4")
+       .attr('class', 'boundary')
        .attr( "d", geoPath );
 
  
  
-   // Map schools
+// Map schools
+// make tooltip for school
 
-//    schools.features.forEach(school => {
-//        console.log(school.lon, school.lat)
-//    })
+let getTooltip = document.getElementById("tooltip");
 
-
-
-// let tip = d3.tip()
-// .attr('class', 'd3-tip')
-// .offset([-5, 0])
-// .style("left", "300px")
-// .style("top", "400px")
-// .html(function(d) {
-//     return ("<a href="+d.school+" target='_blank'>"+d.school +"</a>");
-// })
-    
-// svg.call(tip);
-
-// var projection = d3.geoMercator().scale(1100).translate([-1000,800]);
-
+//Add pins for all schools 
 let schoolPins = svg.append("g");
 schoolPins.selectAll( "path" )
     .data(schools.features)
     .enter()
-    .append("circle", ".pin")
-    .attr("r", 5)
-    .attr("transform", function(d) {
+    .append("circle")
+    .attr('class', 'default-pin')
+    .attr("r", 3)
+    .attr("transform", function(school) {
         return "translate(" + albersProjection([
-        d.lon,
-        d.lat
+        school.lon,
+        school.lat
         ]) + ")";
     })
-// .on('mouseover', tip.show)
+.on('mousemove', function(school){
+    d3.select(this)
+    .attr('class', 'hover-pin');
+
+    let schoolInfo = "<h4>"+school.school+"</h4>"+
+    "<p>Ranking"+school.rank+"</p>"+
+    "<a href='#'>See Statistics<a>"
+
+    console.log(schoolInfo);
+    getTooltip.innerHTML = schoolInfo;
+    getTooltip.show();
+})
+.on("mouseout", function(school){
+    d3.select(this)
+    .attr('class', 'default-pin')
+});
 // .on('click', tip.hide);		
+
+// only allow one active at a time 

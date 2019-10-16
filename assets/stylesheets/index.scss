@@ -5,16 +5,17 @@
 @import './_css_reset.css';
 @import './map.scss';
 
-h1 {
+* {
     font-family: 'Oswald', sans-serif;
+}
+
+h1 {
     color:#EDECF4;
     font-size: 40px;
     text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
 }
 
-p {
-    font-family: 'EB Garamond', serif;
-}
 
 body {
     display: flex;
@@ -22,12 +23,4 @@ body {
     justify-content: center;
     margin-top: 5%;
     background-color: #1E1E2F;
-}
-
-.map {
-  
-}
-
-.school-pin {
-    
 }

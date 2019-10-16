@@ -1,35 +1,40 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Oswald', sans-serif;
 }
+
 .boundary {
     fill: none;
     stroke: #dfdfdf;
     stroke-linejoin: round;
+    stroke-width: .25;
 }
 #map {
     text-align: center;
 }
-.circle {
+.default-pin {
     fill: #EDECF4; 
-    stroke: #EDECF4;
 }
-text{
-    font-family: 'PT Sans', sans-serif;
-    font-weight: 300;
-    font-size: 12px;
-    z-index: 900;
+
+.hover-pin {
+    fill: #E74B6F; 
 }
+
+
 #tooltip{
-    position: absolute;
-    z-index: 2;
-    background: rgba(198, 92, 1, 0.80);
-    width:130px;
-    height:20px;
+    background:rgba(0,0,0,0.9);
+    border:1px solid grey;
+    border-radius:5px;
+    font-size:12px;
+    width:auto;
+    padding:4px;
     color:white;
+    opacity:0;
+}
+
+
+// tooltip 
+h4 {
     font-size: 14px;
-    padding:5px;
-    top:-150px;
-    left:-150px;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
