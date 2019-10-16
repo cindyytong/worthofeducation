@@ -29,7 +29,7 @@ import states from './data/us';
  // lat/lon coordinates into screen coordinates
  var geoPath = d3.geoPath()
      .projection( albersProjection );
-         
+  
  // Classic D3... Select non-existent elements, bind the data, append the elements, and apply attributes
 
    g.selectAll( "path" )
@@ -43,12 +43,37 @@ import states from './data/us';
  
  
    // Map schools
-   console.log(schools.features);
-   var schoolPins = svg.append("g");
-     schoolPins.selectAll( "path" )
-       .data( schools.features )
-       .enter()
-       .append( "path" )
-       .attr( "fill", "#EDECF4" )
-       .attr( "stroke", "#EDECF4" )
-       .attr( "d", geoPath );
+
+//    schools.features.forEach(school => {
+//        console.log(school.lon, school.lat)
+//    })
+
+
+
+// let tip = d3.tip()
+// .attr('class', 'd3-tip')
+// .offset([-5, 0])
+// .style("left", "300px")
+// .style("top", "400px")
+// .html(function(d) {
+//     return ("<a href="+d.school+" target='_blank'>"+d.school +"</a>");
+// })
+    
+// svg.call(tip);
+
+// var projection = d3.geoMercator().scale(1100).translate([-1000,800]);
+
+let schoolPins = svg.append("g");
+schoolPins.selectAll( "path" )
+    .data(schools.features)
+    .enter()
+    .append("circle", ".pin")
+    .attr("r", 5)
+    .attr("transform", function(d) {
+        return "translate(" + albersProjection([
+        d.lon,
+        d.lat
+        ]) + ")";
+    })
+// .on('mouseover', tip.show)
+// .on('click', tip.hide);		
