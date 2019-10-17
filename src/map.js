@@ -3,11 +3,11 @@ import states from './data/us';
 import * as rank from './data/top_ten';
 
  //Width and height of map
- var width = 1300;
- var height = 700;
+ const width = 1300;
+ const height = 700;
  
  // create svg
- var svg = d3.select( "#map" )
+ const svg = d3.select( "#map" )
      .append( "svg" )
      .attr( "width", width )
      .attr( "height", height )
@@ -15,10 +15,10 @@ import * as rank from './data/top_ten';
  
  // Append empty placeholder g element to the SVG
  // g will contain geometry elements
- var g = svg.append( "g" );
+ const g = svg.append( "g" );
  
  // D3 Projection
- var albersProjection= d3.geoAlbers()
+ const albersProjection= d3.geoAlbers()
      .scale( 1340 )
      .rotate( [90,0] )
      .center( [-6, 38] )
@@ -27,7 +27,7 @@ import * as rank from './data/top_ten';
          
  // Create GeoPath function that uses built-in D3 functionality to turn
  // lat/lon coordinates into screen coordinates
- var geoPath = d3.geoPath()
+ const geoPath = d3.geoPath()
      .projection( albersProjection );
   
  // Classic D3... Select non-existent elements, bind the data, append the elements, and apply attributes
@@ -44,7 +44,7 @@ import * as rank from './data/top_ten';
 
   // modal functionality 
 
-  let close = document.getElementsByClassName("close")[0];
+  const close = document.getElementsByClassName("close")[0];
   let modal = document.getElementById("modal");
   
   close.onclick = function(){
@@ -67,7 +67,6 @@ import * as rank from './data/top_ten';
   
   let tip = d3.tip()
       .html(function(school) {
-          debugger
           return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
           "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick='openModal()'>See Statistics</button></div>");
       })
@@ -75,11 +74,75 @@ import * as rank from './data/top_ten';
   svg.call(tip);
  
   /// Add content into modal 
-  let fillModal = function(school) {
-      document.getElementById("about-school").append(school.school);
+  function fillModal(school) {
+      document.getElementById("about-school").innerHTML = school.school;
+      // make line graph 
+      document.getElementById("rank-value").innerHTML = school.rank;
+      document.getElementById("start-salary-value").innerHTML = school.start_salary;
+      document.getElementById("mid-salary-value").innerHTML = school.end_salary;
+      document.getElementById("tuition-value").innerHTML = school.tuition;
+      document.getElementById("pay-off-value").innerHTML = school.percent_tuition_paid;
   };
 
+  // draw line chart
 
+  function drawGraph(school){
+    debugger
+    const x = d3.scaleLinear()
+        .domain([0,10])
+        .range([0, 10])
+      
+    const y = d3.scaleLinear()
+        .domain([0, 13])
+        .range([0, 1300000])
+        // .clamp(true)
+
+    const xAxis = d3.axisBottom(x);
+    const yAxis = d3.axisLeft(y);
+    const graphWidth = 600;
+    const graphHeight = 400; 
+    // const graphMargin = 20;
+
+    let svg = d3.select("#line-graph").append("svg")
+    .attr("width", graphWidth)
+    .attr("height", graphHeight)
+    .append("g")
+    // .attr("transform", "translate(" + graphMargin.left + "," + graphMargin.top + ")");
+    
+    svg.append("g")
+      .attr("class", "xAxis")
+      .attr("transform", "translate(0," + graphHeight + ")")
+      .call(xAxis);
+    
+    svg.append("g")
+      .attr("class", "yAxis")
+      .call(yAxis);
+    
+      debugger
+    // parse values 
+    let parseSalary = parseFloat(school.start_salary.substring(1).replace(/,/g,''));
+    let parseEndSalary = parseFloat(school.end_salary.substring(1).replace(/,/g,''));
+    let parseTuition = parseFloat(school.tuition.substring(1).replace(/,/g,''));
+
+    let parseReturn = parseFloat(school.investment_return.substring(1).replace(/,/g,''));
+
+    debugger
+    // const lines = [
+    //     [{"x":0, "y": parseSalary}, {"x":10, "y": school.end_salary}]
+    //     [{"x":0, "y": parseEndSalary}, {"x":10, "y": parseTuition}]
+    //     [{"x":0, "y": parseTuition}, {"x":10, "y": parseReturn}]
+    // ]
+
+    // for (let i = 0; i < lines.length; i++) {
+    //     debugger 
+    //     svg.append("path")
+    //       .attr("class", "plot")
+    //       .datum(lines[i])
+    //       .attr("d", line);
+    // }
+    
+
+  }
 
 //Default have all schools shown
 let schoolPins = svg.append("g");
@@ -100,7 +163,9 @@ schoolPins.selectAll( "path" )
         })	
         .on('click', function(school) {  // does not work for mouseover
             tip.show(school);
-            console.log(school);
+            fillModal(school);
+            drawGraph(school);
+            
         })
         .on('mouseleave', function(){
             d3.select(this).classed("hover-pin", false)

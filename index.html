@@ -16,7 +16,7 @@
   </head>
   
   <body>
-    <h1>The Worth of the Nation's Most Prestigious Colleges</h1>
+    <h1 id="heading">The Worth of the Nation's Most Prestigious Colleges</h1>
     <div id="tooltip"></div>
     <div id="map"></div>
     <div id="menu">
@@ -33,34 +33,36 @@
     <div id="modal" class="hide">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h4 id="about-school"></h4>
-        <div id="modal-key">
-          <p>Cumulative Graduate Earnings</p>
-          <p>Four yr tuition cost as of 2019</p>
-          <p>Value of investing tuition cost in S&P500 Index</p>
-        </div>
         <div id="line-graph"></div>
-        <div id="about-college">
-          <h4>Key Figures</h4>
-          <div class="stat-set">
-            <p class="stat-title">Forbes Ranking</p>
-            <p class="stat-value">?</p>
+        <div class="right-column">
+          <h4 id="about-school"></h4>
+          <div id="modal-key">
+            <p>Cumulative Graduate Earnings</p>
+            <p>Four yr tuition cost as of 2019</p>
+            <p>Value of investing tuition cost in S&P500 Index</p>
           </div>
-          <div class="stat-set">
-              <p class="stat-title">Median Graduate Starting Salary</p>
-              <p class="stat-value">?</p>
-          </div>
-          <div class="stat-set">
-              <p class="stat-title">Median Graduate Salary 10 Years Post Graduation</p>
-              <p class="stat-value">?</p>
-          </div>
-          <div class="stat-set">
-              <p class="stat-title">4 Year Tuition Cost in 2019</p>
-              <p class="stat-value">?</p>
-          </div>
-          <div class="stat-set">
-              <p class="stat-title">No. of Years to Pay Off Tuition at 20% Annual Salary Contribution</p>
-              <p class="stat-value">? Years</p>
+          <div id="about-college">
+            <h4>Key Figures</h4>
+            <div class="stat-set">
+              <p class="stat-title">Forbes Ranking</p>
+              <p id="rank-value" class="stat-value"></p>
+            </div>
+            <div class="stat-set">
+                <p class="stat-title">Median Graduate Starting Salary</p>
+                <p id="start-salary-value" class="stat-value"></p>
+            </div>
+            <div class="stat-set">
+                <p class="stat-title">Median Graduate Salary 10 Years Post Graduation</p>
+                <p id="mid-salary-value" class="stat-value"></p>
+            </div>
+            <div class="stat-set">
+                <p class="stat-title">4 Year Tuition Cost in 2019</p>
+                <p id="tuition-value" class="stat-value"></p>
+            </div>
+            <div class="stat-set">
+                <p class="stat-title">% of Tuition Paid Off After 10 Yrs at 20% Annual Salary Contribution</p>
+                <p id="pay-off-value" class="stat-value"></p>
+            </div>
           </div>
         </div>
       </div>

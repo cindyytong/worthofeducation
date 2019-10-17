@@ -1,0 +1,13 @@
+#line-graph {
+    width: 700px; 
+    margin: 0 auto;
+}
+
+.xAxis path, .yAxis path{
+    stroke:white;
+    fill: none;
+  }
+  
+path.plot {
+    stroke: #FFA319;
+  }
