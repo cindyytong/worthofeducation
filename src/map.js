@@ -1,6 +1,7 @@
 import schools from './data/schools';
 import states from './data/us';
 import * as rank from './data/top_ten';
+// import { SIGBREAK } from 'constants';
 
  //Width and height of map
  const width = 1300;
@@ -84,64 +85,78 @@ import * as rank from './data/top_ten';
       document.getElementById("pay-off-value").innerHTML = school.percent_tuition_paid;
   };
 
-  // draw line chart
-
+  // draw graph
   function drawGraph(school){
-    debugger
+    const graphWidth = 700;  // 450 + 50; 35 ea *10
+    const graphHeight = 500;  // 455 + 50; 35 ea * 13
+    
+    const graphSVG = d3.select("#line-graph")
+        .append("svg")
+        .attr("class", "axis")
+        .attr("width", graphWidth) //
+        .attr("height", graphHeight) //
+
+    const xscale = d3.scaleLinear()
+        .domain([0, 10])
+        .range([0, graphWidth - 80 ])
+
     const x = d3.scaleLinear()
-        .domain([0,10])
-        .range([0, 10])
-      
+    .domain([0, 10])
+
+    
+    const yscale = d3.scaleLinear()
+        .domain([0, 1300000])
+        .range([graphHeight-50, 0]);
+
     const y = d3.scaleLinear()
-        .domain([0, 13])
-        .range([0, 1300000])
-        // .clamp(true)
-
-    const xAxis = d3.axisBottom(x);
-    const yAxis = d3.axisLeft(y);
-    const graphWidth = 600;
-    const graphHeight = 400; 
-    // const graphMargin = 20;
-
-    let svg = d3.select("#line-graph").append("svg")
-    .attr("width", graphWidth)
-    .attr("height", graphHeight)
-    .append("g")
-    // .attr("transform", "translate(" + graphMargin.left + "," + graphMargin.top + ")");
+        .domain([0, 1400000])
     
-    svg.append("g")
-      .attr("class", "xAxis")
-      .attr("transform", "translate(0," + graphHeight + ")")
-      .call(xAxis);
+    const xaxis = d3.axisBottom()
+        .scale(xscale);
     
-    svg.append("g")
-      .attr("class", "yAxis")
-      .call(yAxis);
+    const yaxis = d3.axisLeft()
+        .scale(yscale);
     
-      debugger
-    // parse values 
+    graphSVG.append("g")
+        .attr("transform", "translate(50,10)")
+        .call(yaxis);
+    
+    let xAxisTranslate = graphHeight - 40;
+    
+    graphSVG.append("g")
+        .attr("transform", "translate(50, " + xAxisTranslate  +")")
+        .call(xaxis)
+  
+    // parse coordinates for lines
     let parseSalary = parseFloat(school.start_salary.substring(1).replace(/,/g,''));
     let parseEndSalary = parseFloat(school.end_salary.substring(1).replace(/,/g,''));
     let parseTuition = parseFloat(school.tuition.substring(1).replace(/,/g,''));
-
     let parseReturn = parseFloat(school.investment_return.substring(1).replace(/,/g,''));
 
-    debugger
-    // const lines = [
-    //     [{"x":0, "y": parseSalary}, {"x":10, "y": school.end_salary}]
-    //     [{"x":0, "y": parseEndSalary}, {"x":10, "y": parseTuition}]
-    //     [{"x":0, "y": parseTuition}, {"x":10, "y": parseReturn}]
-    // ]
+    const salaryData = [
+        {"date":0, "value": parseSalary}, 
+        {"date":10, "value": parseEndSalary}]
 
-    // for (let i = 0; i < lines.length; i++) {
-    //     debugger 
-    //     svg.append("path")
-    //       .attr("class", "plot")
-    //       .datum(lines[i])
-    //       .attr("d", line);
-    // }
     
+    let lineFunction = d3.line()
+        .x(function(d) { return xscale(d.date) })
+        .y(function(d) { return yscale(d.value) });
 
+    graphSVG.append("path")
+    .attr("d", lineFunction(salaryData))
+        .attr("fill", "none")
+        .attr("stroke", "#dfdfdf")
+        .attr("stroke-width", 1.5)
+    
+    // graphSVG.append("g")
+    //     .selectAll("dot")
+    //     .data(salaryData)
+    //     .enter()
+    //     .append("circle")
+    //     .attr("cx", function(d) { return x(d.date) } )
+    //     .attr("cy", function(d) { return y(d.value) } )
+    //     .attr("r", 5)
+    //     .attr("fill", "#dfdfdf")
   }
 
 //Default have all schools shown
@@ -164,6 +179,7 @@ schoolPins.selectAll( "path" )
         .on('click', function(school) {  // does not work for mouseover
             tip.show(school);
             fillModal(school);
+    
             drawGraph(school);
             
         })

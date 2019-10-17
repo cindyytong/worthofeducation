@@ -3,11 +3,15 @@
     margin: 0 auto;
 }
 
-.xAxis path, .yAxis path{
-    stroke:white;
-    fill: none;
-  }
+// .xAxis path, .yAxis path{
+//     stroke:white;
+//     fill: none;
+//   }
   
-path.plot {
-    stroke: #FFA319;
+.plot {
+    stroke: white;
+  }
+
+  .axis {
+      stroke: white;
   }
