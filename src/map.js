@@ -42,31 +42,44 @@ import * as rank from './data/top_ten';
  
  // Map schools
 
-// let showTip = d3.select("#modal").style("display", "block");
+  // modal functionality 
 
-function openModal() {
-    // return () => {showTip}
-    console.log(document.getElementById('modal'));
-    document.getElementById('modal').classList.remove("hide");
-    // d3.select("#modal").style("display", "block");
-    // console.log(modal.style)
-}
-window.openModal = openModal;
+  let close = document.getElementsByClassName("close")[0];
+  let modal = document.getElementById("modal");
+  
+  close.onclick = function(){
+      modal.classList.add("hide");
+  }
+  function openModal() {
+      modal.classList.remove("hide");
+  }
+  window.openModal = openModal;
+  
+  // // remove modal if clicking outside of modal
+  // window.onclick = function(event) {
+  //     console.log(event.target);
+  //     if(event.target != modal && !modal.classList.contains("hide")) {
+  //         modal.classList.add("hide");
+  //     }
+  // }
+  
+  // tooltip for school
+  
+  let tip = d3.tip()
+      .html(function(school) {
+          debugger
+          return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
+          "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick='openModal()'>See Statistics</button></div>");
+      })
+  
+  svg.call(tip);
+ 
+  /// Add content into modal 
+  let fillModal = function(school) {
+      document.getElementById("about-school").append(school.school);
+  };
 
-// let tip = d3.tip()
-//     .html(function(school) {
-//         return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
-//         "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick="+openModal+">See Statistics</button></div>");
-//     })
 
-let tip = d3.tip()
-    .html(function(school) {
-        return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
-        "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick='openModal()'>See Statistics</button></div>");
-    })
-
-
-svg.call(tip);
 
 //Default have all schools shown
 let schoolPins = svg.append("g");
@@ -82,8 +95,16 @@ schoolPins.selectAll( "path" )
             school.lat
             ]) + ")";
         })
-        .on('mouseover', tip.show)
-        .on('click', tip.hide);		
+        .on('mouseover', function(){
+            d3.select(this).classed("hover-pin", true)
+        })	
+        .on('click', function(school) {  // does not work for mouseover
+            tip.show(school);
+            console.log(school);
+        })
+        .on('mouseleave', function(){
+            d3.select(this).classed("hover-pin", false)
+        });	
 
 // Filtering 
 // Default select all
@@ -103,8 +124,7 @@ function filterSchools(filterId, dataSet, pinClass) {
             school.lat
             ]) + ")";
         })
-        .on('mouseover', tip.show)
-        .on('click', tip.hide);		
+        	
     }
 }
 
@@ -114,26 +134,3 @@ filterSchools('start-salary', rank.highest_start, 'red-pin');
 filterSchools('mid-salary', rank.highest_midcareer, 'purple-pin');
 filterSchools('pay-off', rank.fastest_pay, 'pink-pin');
 
-// modal functionality 
-
-// let modal = document.getElementById('modal');
-
-let close = document.getElementsByClassName("close")[0];
-
-
-// let btn = document.getElementById('open-modal');
-// btn.onclick = function(btn){
-//     btn.classList.add("hide");
-// }
-
-
-// close.onclick = function(){
-//     modal.style.display = "none";
-// }
-
-// // remove modal if clicking outside of modal
-// window.onclick = function(event) {
-//     if(event.target != modal) {
-//         document.getElementById('modal').classList.add("hide");
-//     }
-// }
