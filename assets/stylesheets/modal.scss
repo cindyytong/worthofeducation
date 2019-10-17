@@ -17,12 +17,34 @@
     font-family: 'Oswald', sans-serif;
     color: white;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     min-height: 500px;
 
   }
 
- 
+  #modal-header-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 95%;
+
+  }
+
+  #modal-key {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+
+  #modal-graph-about-row {
+    display: flex; 
+    flex-direction: row;
+    width: 95%;
+    justify-content: space-between;
+  }
+
 
   .hide {
       display: none;
