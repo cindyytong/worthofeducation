@@ -8,10 +8,11 @@
 //     fill: none;
 //   }
   
-.plot {
-    stroke: white;
+.line {
+    fill: none;
+    stroke-width: 1.5;
   }
 
-  .axis {
-      stroke: white;
-  }
+.axis {
+    stroke: white;
+}

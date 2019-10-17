@@ -57,7 +57,7 @@ export default
       "highest_start_salary": 36,
       "highest_end_salary": 36,
       "total_tuition_paid": "$241,670",
-      "percent_tuition_paid": "N/A",
+      "percent_tuition_paid": "N/A no tuition",
       "fastest_pay_off": 1
     },
     {
@@ -76,7 +76,7 @@ export default
       "highest_start_salary": 41,
       "highest_end_salary": 41,
       "total_tuition_paid": "$227,752",
-      "percent_tuition_paid": "N/A",
+      "percent_tuition_paid": "N/A no tuition",
       "fastest_pay_off": 2
     },
     {
@@ -95,7 +95,7 @@ export default
       "highest_start_salary": 45,
       "highest_end_salary": 45,
       "total_tuition_paid": "$218,421",
-      "percent_tuition_paid": "N/A",
+      "percent_tuition_paid": "N/A no tuition",
       "fastest_pay_off": 3
     },
     {

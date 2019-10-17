@@ -1,44 +1,33 @@
 import schools from './data/schools';
 import states from './data/us';
 import * as rank from './data/top_ten';
-// import { SIGBREAK } from 'constants';
 
- //Width and height of map
  const width = 1300;
  const height = 700;
  
- // create svg
  const svg = d3.select( "#map" )
      .append( "svg" )
      .attr( "width", width )
      .attr( "height", height )
 
+const g = svg.append( "g" );
  
- // Append empty placeholder g element to the SVG
- // g will contain geometry elements
- const g = svg.append( "g" );
- 
- // D3 Projection
- const albersProjection= d3.geoAlbers()
+const albersProjection= d3.geoAlbers()
      .scale( 1340 )
      .rotate( [90,0] )
      .center( [-6, 38] )
      .translate( [width/2,height/2] );
  
-         
- // Create GeoPath function that uses built-in D3 functionality to turn
- // lat/lon coordinates into screen coordinates
- const geoPath = d3.geoPath()
+const geoPath = d3.geoPath()
      .projection( albersProjection );
   
- // Classic D3... Select non-existent elements, bind the data, append the elements, and apply attributes
 
-   g.selectAll( "path" )
-       .data( states.features ) 
-       .enter()
-       .append( "path" )
-       .attr('class', 'boundary')
-       .attr( "d", geoPath );
+g.selectAll( "path" )
+    .data( states.features ) 
+    .enter()
+    .append( "path" )
+    .attr('class', 'boundary')
+    .attr( "d", geoPath );
 
  
  // Map schools
@@ -50,21 +39,15 @@ import * as rank from './data/top_ten';
   
   close.onclick = function(){
       modal.classList.add("hide");
+      document.getElementById("line-graph").innerHTML = "";
+      document.getElementById("page-wrap").classList.remove('modal-is-open')
   }
   function openModal() {
       modal.classList.remove("hide");
+      document.getElementById("page-wrap").classList.add('modal-is-open')
   }
   window.openModal = openModal;
-  
-  // // remove modal if clicking outside of modal
-  // window.onclick = function(event) {
-  //     console.log(event.target);
-  //     if(event.target != modal && !modal.classList.contains("hide")) {
-  //         modal.classList.add("hide");
-  //     }
-  // }
-  
-  // tooltip for school
+
   
   let tip = d3.tip()
       .html(function(school) {
@@ -77,7 +60,6 @@ import * as rank from './data/top_ten';
   /// Add content into modal 
   function fillModal(school) {
       document.getElementById("about-school").innerHTML = school.school;
-      // make line graph 
       document.getElementById("rank-value").innerHTML = school.rank;
       document.getElementById("start-salary-value").innerHTML = school.start_salary;
       document.getElementById("mid-salary-value").innerHTML = school.end_salary;
@@ -89,7 +71,6 @@ import * as rank from './data/top_ten';
   function drawGraph(school){
     const graphWidth = 700;  // 450 + 50; 35 ea *10
     const graphHeight = 500;  // 455 + 50; 35 ea * 13
-    
     const graphSVG = d3.select("#line-graph")
         .append("svg")
         .attr("class", "axis")
@@ -109,7 +90,7 @@ import * as rank from './data/top_ten';
         .range([graphHeight-50, 0]);
 
     const y = d3.scaleLinear()
-        .domain([0, 1400000])
+        .domain([0, 1300000])
     
     const xaxis = d3.axisBottom()
         .scale(xscale);
@@ -135,28 +116,33 @@ import * as rank from './data/top_ten';
 
     const salaryData = [
         {"date":0, "value": parseSalary}, 
-        {"date":10, "value": parseEndSalary}]
-
+        {"date":10, "value": parseEndSalary}];
     
+    const tuitionData = [
+        {"date":0, "value": parseTuition}, 
+        {"date":10, "value": parseTuition}];
+    
+    const investmentData = [
+        {"date":0, "value": parseTuition}, 
+        {"date":10, "value": parseReturn}];
+
     let lineFunction = d3.line()
         .x(function(d) { return xscale(d.date) })
         .y(function(d) { return yscale(d.value) });
 
-    graphSVG.append("path")
-    .attr("d", lineFunction(salaryData))
-        .attr("fill", "none")
-        .attr("stroke", "#dfdfdf")
-        .attr("stroke-width", 1.5)
-    
-    // graphSVG.append("g")
-    //     .selectAll("dot")
-    //     .data(salaryData)
-    //     .enter()
-    //     .append("circle")
-    //     .attr("cx", function(d) { return x(d.date) } )
-    //     .attr("cy", function(d) { return y(d.value) } )
-    //     .attr("r", 5)
-    //     .attr("fill", "#dfdfdf")
+    function drawLine(dataSet, color){
+        graphSVG.append("g")
+        .attr("transform", "translate(50,10)")
+        .append("path")
+        .attr("class", "line")
+        .attr("d", lineFunction(dataSet))
+            .attr("stroke", color)
+    };
+
+    drawLine(salaryData, "#7CDBF2");
+    drawLine(tuitionData, "#E74B6F");
+    drawLine(investmentData, "#7360CC");
+
   }
 
 //Default have all schools shown
@@ -173,26 +159,19 @@ schoolPins.selectAll( "path" )
             school.lat
             ]) + ")";
         })
-        .on('mouseover', function(){
-            d3.select(this).classed("hover-pin", true)
-        })	
-        .on('click', function(school) {  // does not work for mouseover
+        .on('mouseover', function(school){
             tip.show(school);
             fillModal(school);
-    
+            document.getElementById("line-graph").innerHTML = "";
             drawGraph(school);
-            
-        })
-        .on('mouseleave', function(){
-            d3.select(this).classed("hover-pin", false)
-        });	
+        })	
+        // .on('mouseleave', function(school){
+        // });	
 
 // Filtering 
-// Default select all
 function filterSchools(filterId, dataSet, pinClass) {
     document.getElementById(filterId).onclick = function(){
         d3.selectAll("circle").remove();
-
         schoolPins.selectAll( "path" )
         .data(dataSet)
         .enter()
