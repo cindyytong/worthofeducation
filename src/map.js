@@ -69,7 +69,7 @@ g.selectAll( "path" )
 
   // draw graph
   function drawGraph(school){
-    const graphWidth = 700;  // 450 + 50; 35 ea *10
+    const graphWidth = 900;  // 450 + 50; 35 ea *10
     const graphHeight = 500;  // 455 + 50; 35 ea * 13
     const graphSVG = d3.select("#line-graph")
         .append("svg")
@@ -99,15 +99,34 @@ g.selectAll( "path" )
         .scale(yscale);
     
     graphSVG.append("g")
-        .attr("transform", "translate(50,10)")
-        .call(yaxis);
+        .attr("transform", "translate(80,10)")
+        .call(yaxis)
+        .attr("class", "axis-tick-label");
     
     let xAxisTranslate = graphHeight - 40;
     
     graphSVG.append("g")
-        .attr("transform", "translate(50, " + xAxisTranslate  +")")
+        .attr("transform", "translate(80, " + xAxisTranslate  +")")
         .call(xaxis)
+        .attr("class", "axis-tick-label");
   
+    graphSVG.append("text")             
+    .attr("transform",
+          "translate(" + (graphWidth/2) + " ," + 
+                         (graphHeight) + ")")
+    .style("text-anchor", "middle")
+    .text("Working Years Post Graduation")
+    .attr("class", "axis-label")
+
+    graphSVG.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 )
+        .attr("x",0 - (graphHeight / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Median Earnings in USD")
+        .attr("class", "axis-label");      
+
     // parse coordinates for lines
     let parseSalary = parseFloat(school.start_salary.substring(1).replace(/,/g,''));
     let parseEndSalary = parseFloat(school.end_salary.substring(1).replace(/,/g,''));
@@ -132,7 +151,7 @@ g.selectAll( "path" )
 
     function drawLine(dataSet, color){
         graphSVG.append("g")
-        .attr("transform", "translate(50,10)")
+        .attr("transform", "translate(80,10)")
         .append("path")
         .attr("class", "line")
         .attr("d", lineFunction(dataSet))
