@@ -127,27 +127,34 @@ g.selectAll( "path" )
         .text("Median Earnings in USD")
         .attr("class", "axis-label");      
 
-    // parse coordinates for lines
-    let parseSalary = parseFloat(school.start_salary.substring(1).replace(/,/g,''));
-    let parseEndSalary = parseFloat(school.end_salary.substring(1).replace(/,/g,''));
-    let parseTuition = parseFloat(school.tuition.substring(1).replace(/,/g,''));
-    let parseReturn = parseFloat(school.investment_return.substring(1).replace(/,/g,''));
+    // data for lines 
+    const salaryValues = [school.start_salary, school.salary_total_1, school.salary_total_2, school.salary_total_3, school.salary_total_4, school.salary_total_5, school.salary_total_6, school.salary_total_7, school.salary_total_8, school.salary_total_9, school.total_earnings];
+    const payOffValues = [school.payoff_0, school.payoff_1, school.payoff_2, school.payoff_3, school.payoff_4, school.payoff_5, school.payoff_6, school.payoff_7, school.payoff_8, school.payoff_9, school.payoff_10];
+    const investmentValues = [school.tuition, school.invest_1, school.invest_2, school.invest_3, school.invest_4, school.invest_5, school.invest_6, school.invest_7, school.invest_8, school.invest_9, school.investment_return];
 
-    const salaryData = [
-        {"date":0, "value": parseSalary}, 
-        {"date":10, "value": parseEndSalary}];
-    
+    const salaryData = [];
+    for(let i = 0; i <=10; i++){
+        salaryData.push({"date":i, "value": salaryValues[i]})
+    }
+
     const tuitionData = [
-        {"date":0, "value": parseTuition}, 
-        {"date":10, "value": parseTuition}];
+        {"date":0, "value": school.tuition}, 
+        {"date":10, "value": school.tuition}];
+
+    const payOffData = [];
+    for(let i = 0; i <=10; i++){
+        payOffData.push({"date":i, "value": payOffValues[i]})
+    }
     
-    const investmentData = [
-        {"date":0, "value": parseTuition}, 
-        {"date":10, "value": parseReturn}];
+    const investmentData = [];
+    for(let i = 0; i <=10; i++){
+        investmentData.push({"date":i, "value": investmentValues[i]})
+    }
 
     let lineFunction = d3.line()
         .x(function(d) { return xscale(d.date) })
-        .y(function(d) { return yscale(d.value) });
+        .y(function(d) { return yscale(d.value) })
+        .curve(d3.curveBasis);
 
     function drawLine(dataSet, color){
         graphSVG.append("g")
@@ -160,6 +167,7 @@ g.selectAll( "path" )
 
     drawLine(salaryData, "#7CDBF2");
     drawLine(tuitionData, "#E74B6F");
+    drawLine(payOffData, "#75F1AA");
     drawLine(investmentData, "#7360CC");
 
   }
