@@ -2,34 +2,36 @@ import {schools, most_expensive, highest_start, highest_midcareer, fastest_pay }
 import states from './data/us';
 // import * as rank from './data/top_ten';
 
- const width = 1300;
- const height = 700;
+const width = 1300;
+const height = 700;
+
+// draw states 
  
- const svg = d3.select( "#map" )
+const svg = d3.select( "#map" )
      .append( "svg" )
      .attr( "width", width )
      .attr( "height", height )
 
-const g = svg.append( "g" );
- 
+     
 const albersProjection= d3.geoAlbers()
      .scale( 1340 )
      .rotate( [90,0] )
      .center( [-6, 38] )
      .translate( [width/2,height/2] );
- 
+     
 const geoPath = d3.geoPath()
-     .projection( albersProjection );
-  
+     .projection( albersProjection )
+     
+const g = svg.append( "g" )
 
 g.selectAll( "path" )
     .data( states.features ) 
     .enter()
     .append( "path" )
     .attr('class', 'boundary')
-    .attr( "d", geoPath );
+    .attr( "d", geoPath )
 
- 
+
  // Map schools
 
   // modal functionality 
@@ -50,10 +52,11 @@ g.selectAll( "path" )
 
   
   let tip = d3.tip()
-      .html(function(school) {
-          return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
-          "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick='openModal()'>See Statistics</button></div>");
-      })
+  .offset([-80, 0])
+    .html(function(school) {
+        return("<div class='tooltip-content'><h4>"+school.school+"</h4>"+
+        "<p>Ranking: "+school.rank+"</p><button id='open-modal' onclick='openModal()'>See Statistics</button></div>");
+    })
   
   svg.call(tip);
  
@@ -61,11 +64,13 @@ g.selectAll( "path" )
   function fillModal(school) {
       document.getElementById("about-school").innerHTML = school.school;
       document.getElementById("rank-value").innerHTML = school.rank;
-      document.getElementById("start-salary-value").innerHTML = school.start_salary;
-      document.getElementById("mid-salary-value").innerHTML = school.end_salary;
-      document.getElementById("tuition-value").innerHTML = school.tuition;
+      document.getElementById("start-salary-value").innerHTML =  `$${school.start_salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+      document.getElementById("mid-salary-value").innerHTML = `$${school.end_salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+      document.getElementById("tuition-value").innerHTML = `$${school.tuition.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
       document.getElementById("pay-off-value").innerHTML = school.percent_tuition_paid;
   };
+
+
 
   // draw graph
   function drawGraph(school){
@@ -128,6 +133,7 @@ g.selectAll( "path" )
         .attr("class", "axis-label");      
 
     // data for lines 
+    debugger
     const salaryValues = [school.start_salary, school.salary_total_1, school.salary_total_2, school.salary_total_3, school.salary_total_4, school.salary_total_5, school.salary_total_6, school.salary_total_7, school.salary_total_8, school.salary_total_9, school.total_earnings];
     const payOffValues = [school.payoff_0, school.payoff_1, school.payoff_2, school.payoff_3, school.payoff_4, school.payoff_5, school.payoff_6, school.payoff_7, school.payoff_8, school.payoff_9, school.payoff_10];
     const investmentValues = [school.tuition, school.invest_1, school.invest_2, school.invest_3, school.invest_4, school.invest_5, school.invest_6, school.invest_7, school.invest_8, school.invest_9, school.investment_return];
@@ -172,61 +178,73 @@ g.selectAll( "path" )
 
   }
 
-//Default have all schools shown
-let schoolPins = svg.append("g");
-schoolPins.selectAll( "path" )
-        .data(schools)
-        .enter()
-        .append("circle")
-        .attr('class', 'default-pin')
-        .attr("r", 4)
-        .attr("transform", function(school) {
-            return "translate(" + albersProjection([
-            school.lon,
-            school.lat
-            ]) + ")";
-        })
-        .on('mouseover', function(school){
-            tip.show(school);
-            fillModal(school);
-            document.getElementById("line-graph").innerHTML = "";
-            drawGraph(school);
-        })	
-        // .on('mouseleave', function(school){
-        // });	
+//Default have all schools shown
+let schoolPins = svg.append("g");
+// let tipWithContent = d3.selectAll(".tooltip-content");
 
+// function equalToEventTarget(){
+//     return this == d3.event.target;
+// }
 
-// Filtering 
+// d3.select("body").on("click",function(){
 
-function filterSchools(filterId, dataSet, pinClass) {
-    document.getElementById(filterId).onclick = function(){
-        d3.selectAll("circle").remove();
-        schoolPins.selectAll( "path" )
-        .data(dataSet)
-        .enter()
-        .append("circle")
-        .attr('class', pinClass)
-        .attr("r", 4)
-        .attr("transform", function(school) {
-            return "translate(" + albersProjection([
-            school.lon,
-            school.lat
-            ]) + ")";
-        })
-        .on('mouseover', function(school){
-            tip.show(school);
-            fillModal(school);
-            document.getElementById("line-graph").innerHTML = "";
-            drawGraph(school);
-        })	  	
-    }
+//     var outside = tipWithContent.filter(equalToEventTarget).empty();
+//     if (outside) {
+
+//         tipWithContent.classed("hide", true);
+//     }
+// });
+
+ schoolPins.selectAll( "path" )
+         .data(schools)
+         .enter()
+         .append("circle")
+         .attr('class', 'default-pin')
+         .attr("r", 4)
+         .attr("transform", function(school) {
+             return "translate(" + albersProjection([
+             school.lon,
+             school.lat
+             ]) + ")";
+         })
+         .on('mouseover', function(school){
+             tip.show(school);
+             fillModal(school);
+             document.getElementById("line-graph").innerHTML = "";
+             drawGraph(school);
+             setTimeout(() => {tip.hide(school)}, 2000);
+         }) 
+
+// Filtering 
+
+function filterSchools(filterId, dataSet, pinClass) {
+    document.getElementById(filterId).onclick = function(){
+        d3.selectAll("circle").remove();
+        schoolPins.selectAll( "path" )
+        .data(dataSet)
+        .enter()
+        .append("circle")
+        .attr('class', pinClass)
+        .attr("r", 4)
+        .attr("transform", function(school) {
+            return "translate(" + albersProjection([
+            school.lon,
+            school.lat
+            ]) + ")";
+        })
+        .on('mouseover', function(school){
+                 tip.show(school);
+                 fillModal(school);
+                 document.getElementById("line-graph").innerHTML = "";
+                 drawGraph(school);
+                 setTimeout(() => {tip.hide(school)}, 2000);
+         }) 
+    }
 }
 
 
-filterSchools('all', schools, 'default-pin');
-filterSchools('tuition', most_expensive, 'blue-pin');
-filterSchools('start-salary', highest_start, 'red-pin');
-filterSchools('mid-salary', highest_midcareer, 'purple-pin');
-filterSchools('pay-off', fastest_pay, 'pink-pin');
-
-
+filterSchools('all', schools, 'default-pin');
+filterSchools('tuition', most_expensive, 'blue-pin');
+filterSchools('start-salary', highest_start, 'red-pin');
+filterSchools('mid-salary', highest_midcareer, 'purple-pin');
+filterSchools('pay-off', fastest_pay, 'pink-pin');
