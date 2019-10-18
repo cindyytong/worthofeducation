@@ -13,6 +13,10 @@
 #map {
     text-align: center;
 }
+
+.active {
+    fill: #5F5F6F;
+}
 .default-pin {
     fill: #EDECF4; 
 }
@@ -68,4 +72,9 @@
 .tooltip-content a {
     font-size: 13px;
     color: #E74B6F; 
+}
+
+#open-modal {
+    text-transform: uppercase;
+    padding: .3em;
 }

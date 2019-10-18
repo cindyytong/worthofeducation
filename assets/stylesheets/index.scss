@@ -11,14 +11,38 @@
     font-family: 'Oswald', sans-serif;
 }
 
+#page-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container {
+    position: relative;
+    width: 80%;
+    height: 10%;
+}
+
 h1 {
     color:#EDECF4;
     font-size: 40px;
     text-transform: uppercase;
     font-family: 'Oswald', sans-serif;
     margin-bottom: 50px;
+    text-align:center;
 }
 
+.heading {
+    position: absolute;
+    font-weight: 900;
+    font-size: 3.5em;
+  }
+  
+.heading .letter {
+    display: inline-block;
+    line-height: 1em;
+}
 
 body {
     position: relative;
@@ -43,8 +67,6 @@ body {
     justify-content: center;
     align-content: center;
     align-items: center;
-    margin-left: 10%;
-    margin-right: 10%;
     padding-left: 6%;
     padding-right: 6%;
     
@@ -98,4 +120,32 @@ body {
 
 #all {
     color: #EDECF4;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: black;
+    background-color: #7CDBF2;
+    font-family: 'Oswald';
+    margin-top: 3%;
+    padding: 2% 5%;
+    width: 100%;
+}
+
+.disclaimer {
+    margin-left: 3%;
+}
+
+.icons {
+    margin-right: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 15%;
+}
+
+.icons:hover {
+    cursor: pointer;
 }
