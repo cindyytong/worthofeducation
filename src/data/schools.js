@@ -1,8 +1,4 @@
-export default
-{ 
-  "type": "FeatureCollection",
-  "features":
-  [
+export const schools = [
     {
       "school": "University of Illinois at Chicago",
       "School Type": "State",
@@ -3053,5 +3049,22 @@ export default
       "percent_tuition_paid": "N/A",
       "fastest_pay_off": 50
     }
-   ]
-}
+   ];
+
+  
+  export const most_expensive = schools.filter( school => {
+    return school.most_expensive <= 10
+  });
+  
+  export const highest_start = schools.filter( school => {
+    return school.highest_start_salary <= 10
+  });
+  
+  export const highest_midcareer = schools.filter( school => {
+    return school.highest_end_salary <= 10
+  });
+  
+  export const fastest_pay = schools.filter( school => {
+    return school.fastest_pay_off <= 10
+  });
+

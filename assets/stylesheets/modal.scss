@@ -45,7 +45,7 @@
   }
 
   #modal-key {
-    width: 50%;
+    width: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -54,6 +54,7 @@
     height: 2em;
     padding: .4em .8em;
     margin-left: 5em;
+    margin-bottom: 2em;
   }
 
   #modal-key p {
@@ -72,7 +73,11 @@
   }
 
   #purple-key {
-    color: #8A7BCC;;
+    color: #8A7BCC;
+  }
+
+  #green-key {
+    color: #75F1AA;
   }
 
 
