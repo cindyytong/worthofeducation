@@ -125,3 +125,47 @@ text-decoration: none;
 cursor: pointer;
 }
 
+.right-column {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em;
+  border: .75px dashed #EDECF4;
+}
+
+.about-college {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  justify-content: center !important;
+
+}
+
+.stat-set {
+  margin: 2em 0em
+}
+
+#about-college h4 {
+  font-size: 22px;
+  font-weight: 100;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.stat-title {
+  font-size: 16px;
+  letter-spacing: .1em;
+  font-weight: 100;
+  letter-spacing: .2em;
+  line-height: 1.5em;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 100;
+  color: #7CDBF2;
+  margin-top: .6em;
+  letter-spacing: .15em;
+}
